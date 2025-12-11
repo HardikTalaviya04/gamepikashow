@@ -19,45 +19,45 @@ export function GameGrid({ category }: GameGridProps) {
     setGames([])
     setPage(0)
     setHasMore(true)
-    console.log("category changed:", category,page);
+    console.log("category changed:", category, page);
   }, [category])
+
+  const loadMoreGames = async () => {
+    setIsLoading(true)
+    try {
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: "20",
+        category,
+      })
+      if (category === "all") {
+        const res = await fetch(`/api/games?${params}`)
+        const data = await res.json()
+        console.log("appi check hardi1 ", data);
+        setGames((prev) => [...prev, ...data.games])
+        setHasMore(data.hasMore)
+      }
+      else {
+        const res = await fetch(`https://raw.githubusercontent.com/TasvirLimbani/Atme/refs/heads/main/category/${category}.json`)
+        const data = await res.json()
+        console.log("appi check hardi2 ", data);
+        setGames(data?.data?.games)
+        setHasMore(false)
+      }
+
+
+    } catch (error) {
+      console.error("Failed to load games:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   useEffect(() => {
     if (!hasMore || isLoading) return
 
-    const loadMoreGames = async () => {
-      setIsLoading(true)
-      try {
-        const params = new URLSearchParams({
-          page: page.toString(),
-          limit: "20",
-          category,
-        })
-        if(category === "all") {
-          const res = await fetch(`/api/games?${params}`)
-          const data = await res.json()
-          console.log("appi check hardi1 ",data);
-          setGames((prev) => [...prev, ...data.games])
-          setHasMore(data.hasMore)
-        }
-        else{
-          const res = await fetch(`https://raw.githubusercontent.com/TasvirLimbani/Atme/refs/heads/main/category/${category}.json`)
-          const data = await res.json()
-          console.log("appi check hardi2 ",data);
-          setGames(data?.data?.games)
-          setHasMore(false)
-        }
-
-       
-      } catch (error) {
-        console.error("Failed to load games:", error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
     loadMoreGames()
-  }, [page, category])
+  }, [category])
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -79,7 +79,21 @@ export function GameGrid({ category }: GameGridProps) {
         {games.map((game) => (
           <GameCard key={`${game.name}`} game={game} />
         ))}
+
       </div>
+
+      {hasMore && !isLoading && (
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={loadMoreGames}
+            disabled={isLoading}
+            className="px-6 py-2 mt-20 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 font-bold text-lg transition-colors"
+          >
+            {"Load More"}
+          </button>
+        </div>
+      )}
+
 
       {/* Lazy Load Trigger */}
       <div ref={observerTarget} className="h-10 mt-8 flex items-center justify-center">
