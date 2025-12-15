@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import Script from "next/script"
 import "./globals.css"
 
+
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
@@ -102,6 +103,15 @@ export default function RootLayout({
     setInterval(detectDevTools, 1000);
   `}
         </Script>
+
+        {/* Google AdSense */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3990057144186847"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+
 
       </body>
     </html>

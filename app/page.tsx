@@ -42,6 +42,7 @@ function HomeInner() {
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
+
       <Header />
       <Suspense fallback={<div className="text-white p-8 text-center">Loading...</div>}>
         <HomeInner />
