@@ -32,11 +32,11 @@ export default function SitemapPage() {
                     Trending
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link href="/profile" className="text-slate-300 hover:text-purple-400 transition-colors">
                     Profile
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
 

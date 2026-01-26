@@ -136,9 +136,9 @@ export default function AboutPage() {
                 Be part of the gaming revolution. Explore thousands of titles, connect with fellow gamers, and experience
                 entertainment like never before.
               </p>
-              <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">
+              {/* <button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">
                 Start Your Adventure
-              </button>
+              </button> */}
             </section>
           </main>
         </div>
