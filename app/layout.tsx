@@ -74,7 +74,7 @@ export default function RootLayout({
         <Analytics />
 
         {/* Disable Inspect Element & Right Click */}
-        <Script id="disable-inspect" strategy="afterInteractive">
+        {/* <Script id="disable-inspect" strategy="afterInteractive">
           {`
     // Disable right-click
     document.addEventListener('contextmenu', event => event.preventDefault());
@@ -108,7 +108,7 @@ export default function RootLayout({
     };
     setInterval(detectDevTools, 1000);
   `}
-        </Script>
+        </Script> */}
 
         {/* Google AdSense */}
         <Script
