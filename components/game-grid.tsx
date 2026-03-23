@@ -108,7 +108,7 @@ export function GameGrid({ category }: GameGridProps) {
         )}
         {!hasMore && games.length > 0 && <p className="text-slate-500 text-sm">No more games to load</p>}
       </div>
-      <HorizontalAd />
+      {/* <HorizontalAd /> */}
     </>
   )
 }

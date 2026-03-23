@@ -24,7 +24,7 @@ function HomeInner() {
   return (
     <>
       <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
-      <HorizontalAd />
+      {/* <HorizontalAd /> */}
       <main className="max-w-7xl mx-auto px-4 py-12 flex-1 w-full">
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">

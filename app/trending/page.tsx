@@ -47,7 +47,7 @@ export default function TrendingPage() {
             <p className="text-slate-400">Most played and loved games right now</p>
           </div>
         </div>
-        <HorizontalAd />
+        {/* <HorizontalAd /> */}
 
         {isLoading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -68,7 +68,7 @@ export default function TrendingPage() {
           </div>
         )}
       </main>
-      <HorizontalAd />
+      {/* <HorizontalAd /> */}
 
       <Footer />
     </div>

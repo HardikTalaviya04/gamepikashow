@@ -40,7 +40,7 @@ export default function CategoriesPage() {
           <h1 className="text-4xl font-bold text-white mb-2">Browse Categories</h1>
           <p className="text-slate-400">Explore games by category and find your favorite genre</p>
         </div>
-        <HorizontalAd />
+        {/* <HorizontalAd /> */}
 
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -66,7 +66,7 @@ export default function CategoriesPage() {
                 </div>
               </Link>
             ))}
-            <HorizontalAd />
+            {/* <HorizontalAd /> */}
 
           </div>
 
