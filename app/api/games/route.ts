@@ -43,12 +43,12 @@ export async function GET(request: Request) {
     const limit = Number.parseInt(searchParams.get("limit") || "20")
     const category = searchParams.get("category")
 
-const res = await fetch(
-  `${GAMES_API}?page=${page + 1}`,
-  {
-    cache: "no-store",
-  }
-)
+    const res = await fetch(
+      `${GAMES_API}?page=${page + 1}`,
+      {
+        cache: "no-store",
+      }
+    )
 
     const data = await res.json()
 
@@ -63,30 +63,38 @@ const res = await fetch(
     }
 
     // ✅ OPTIONAL: NORMALIZE DATA (IMPORTANT if frontend expects old structure)
-const formattedGames = games.map((game: any) => ({
-  id: game.id,
-  name: game.title,
-  slug: game.slug,
-  image: game.thumb_small,
-  likes: game.upvote,
-  manualRating: 5,
-  totalPlayed: game.views,
-  ownGame: false,
-  addDate: game.created_at,
-}))
+    const formattedGames = games.map((game: any) => ({
+      id: game.id,
+      name: game.title,
+      slug: game.slug,
+      image: game.thumb_small,
+      likes: game.upvote,
+      manualRating: 5,
+      totalPlayed: game.views,
+      ownGame: false,
+      addDate: game.created_at,
+    }))
 
     return Response.json({
-      games: formattedGames, // 👈 send normalized data
+      games: formattedGames,
       total: games.length,
       page,
       limit,
       hasMore: formattedGames.length > 0,
     })
   } catch (error) {
-    console.error(error)
+    console.error("[v0] Games API Error:", error)
+    // Return graceful response instead of 500 error
     return Response.json(
-      { error: "Failed to fetch games" },
-      { status: 500 }
+      {
+        games: [],
+        total: 0,
+        page: 0,
+        limit: 20,
+        hasMore: false,
+        error: "Unable to load games at this moment. Please try again later.",
+      },
+      { status: 200 }
     )
   }
 }

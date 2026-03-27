@@ -113,17 +113,20 @@ export function GameGrid({ category }: GameGridProps) {
   const [page, setPage] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     setGames([])
     setPage(0)
     setHasMore(true)
+    setError(null)
   }, [category])
 
   const loadMoreGames = async (pageToLoad: number) => {
     if (isLoading) return
 
     setIsLoading(true)
+    setError(null)
 
     try {
       const params = new URLSearchParams({
@@ -137,15 +140,20 @@ export function GameGrid({ category }: GameGridProps) {
 
       // ✅ Prevent duplicates
       setGames((prev) => {
-        const newGames = data.games.filter(
+        const newGames = (data.games || []).filter(
           (newGame: Game) => !prev.some((g) => g.id === newGame.id)
         )
         return [...prev, ...newGames]
       })
 
-      setHasMore(data.hasMore)
+      setHasMore(data.hasMore || false)
+      
+      if (data.error) {
+        setError(data.error)
+      }
     } catch (error) {
       console.error("Failed to load games:", error)
+      setError("Failed to load games. Please check your connection and try again.")
     } finally {
       setIsLoading(false)
     }
@@ -157,12 +165,26 @@ export function GameGrid({ category }: GameGridProps) {
 
   return (
     <>
+      {/* ✅ ERROR MESSAGE */}
+      {error && (
+        <div className="mb-6 p-4 bg-red-900/20 border border-red-700 rounded-lg">
+          <p className="text-red-400 text-sm">{error}</p>
+        </div>
+      )}
+
       {/* ✅ GAME GRID */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {games.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
       </div>
+
+      {/* ✅ EMPTY STATE */}
+      {games.length === 0 && !isLoading && !error && (
+        <div className="text-center py-12">
+          <p className="text-slate-400 text-lg">No games found in this category.</p>
+        </div>
+      )}
 
       {/* ✅ LOAD MORE BUTTON */}
       {hasMore && !isLoading &&(
