@@ -1,2 +1,2 @@
-# PikashowTest
-PikashowTest
+# gamepikashow
+Pikashow Sub Domain
