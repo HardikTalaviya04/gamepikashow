@@ -21,7 +21,7 @@ function HomeInner() {
 
   return (
     <>
-      <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
+      {/* <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} /> */}
       {/* <HorizontalAd /> */}
       <main className="max-w-7xl mx-auto px-4 py-12 flex-1 w-full">
         <div className="mb-12">

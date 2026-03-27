@@ -68,7 +68,7 @@ export function Footer() {
             </div>
 
             {/* Games section */}
-            <div>
+            {/* <div>
               <h4 className="text-lg font-bold mb-4">Games</h4>
               <ul className="space-y-2">
                 <li>
@@ -100,7 +100,7 @@ export function Footer() {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             {/* Social section */}
             <div>

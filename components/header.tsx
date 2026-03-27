@@ -133,9 +133,9 @@ export function Header() {
           <Link href="/" className="text-slate-300 hover:text-white transition-colors text-sm">
             Home
           </Link>
-          <Link href="/categories" className="text-slate-300 hover:text-white transition-colors text-sm">
+          {/* <Link href="/categories" className="text-slate-300 hover:text-white transition-colors text-sm">
             Categories
-          </Link>
+          </Link> */}
           <Link href="/trending" className="text-slate-300 hover:text-white transition-colors text-sm">
             Trending
           </Link>
