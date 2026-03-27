@@ -33,7 +33,7 @@
 // }
 
 
-const GAMES_API = "http://pikashowgames.soon.it/api/v0/list.php"
+const GAMES_API = "https://pikashowgames.soon.it/api/v0/list.php"
 
 export async function GET(request: Request) {
   try {
@@ -43,12 +43,19 @@ export async function GET(request: Request) {
     const limit = Number.parseInt(searchParams.get("limit") || "20")
     const category = searchParams.get("category")
 
-const res = await fetch(
-  `${GAMES_API}?page=${page + 1}`,
-  {
-    cache: "no-store",
-  }
-)
+    const res = await fetch(
+      `${GAMES_API}?page=${page + 1}`,
+      {
+        cache: "no-store",
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        },
+      }
+    )
+
+    if (!res.ok) {
+      throw new Error(`API returned status ${res.status}`)
+    }
 
     const data = await res.json()
 
@@ -63,30 +70,30 @@ const res = await fetch(
     }
 
     // ✅ OPTIONAL: NORMALIZE DATA (IMPORTANT if frontend expects old structure)
-const formattedGames = games.map((game: any) => ({
-  id: game.id,
-  name: game.title,
-  slug: game.slug,
-  image: game.thumb_small,
-  likes: game.upvote,
-  manualRating: 5,
-  totalPlayed: game.views,
-  ownGame: false,
-  addDate: game.created_at,
-}))
+    const formattedGames = games.map((game: any) => ({
+      id: game.id,
+      name: game.title,
+      slug: game.slug,
+      image: game.thumb_small,
+      likes: game.upvote,
+      manualRating: 5,
+      totalPlayed: game.views,
+      ownGame: false,
+      addDate: game.created_at,
+    }))
 
     return Response.json({
-      games: formattedGames, // 👈 send normalized data
+      games: formattedGames,
       total: games.length,
       page,
       limit,
       hasMore: formattedGames.length > 0,
     })
   } catch (error) {
-    console.error(error)
+    console.error("[v0] Games API Error:", error)
     return Response.json(
-      { error: "Failed to fetch games" },
-      { status: 500 }
+      { error: "Failed to fetch games", games: [], total: 0 },
+      { status: 200 }
     )
   }
 }
